@@ -1,275 +1,72 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Fingerprint Hold</title>
-
-<style>
-
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap');
-
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-}
-
-body{
-    height:100vh;
-    overflow:hidden;
-    background:linear-gradient(180deg,#32005e,#5f189d);
-    display:flex;
-    flex-direction:column;
-    align-items:center;
-    justify-content:center;
-    color:white;
-    font-family:'Inter',sans-serif;
-    text-align:center;
-    user-select:none;
-}
-
-.finger-box{
-    position:relative;
-    width:220px;
-    height:220px;
-    margin-bottom:40px;
-    cursor:pointer;
-}
-
-/* SVG отпечаток */
-.fingerprint{
-    position:absolute;
-    inset:0;
-    width:100%;
-    height:100%;
-}
-
-/* Серый */
-.fp-bg path{
-    stroke:rgba(255,255,255,.2);
-}
-
-/* Красный */
-.fp-fill{
-    clip-path: inset(100% 0 0 0);
-    transition:clip-path .03s linear;
-}
-
-.fp-fill path{
-    stroke:#ff1744;
-    filter:
-        drop-shadow(0 0 8px #ff1744)
-        drop-shadow(0 0 22px #ff1744);
-}
-
-/* Круг */
-.ring{
-    position:absolute;
-    inset:-12px;
-    width:244px;
-    height:244px;
-    transform:rotate(-90deg);
-}
-
-.ring circle{
-    fill:none;
-    stroke-width:8;
-    stroke-linecap:round;
-}
-
-.ring-bg{
-    stroke:rgba(255,255,255,.12);
-}
-
-.ring-progress{
-    stroke:#ff1744;
-    stroke-dasharray:691;
-    stroke-dashoffset:691;
-    transition:stroke-dashoffset .03s linear;
-    filter:drop-shadow(0 0 10px #ff1744);
-}
-
-h1{
-    font-size:28px;
-    line-height:1.25;
-    margin-bottom:12px;
-    padding:0 20px;
-}
-
-p{
-    font-size:18px;
-    opacity:.9;
-    margin-top:5px;
-}
-
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Открыть в браузере</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap');
+        body {
+            margin: 0; padding: 0; height: 100vh;
+            background: linear-gradient(180deg, #2a0066, #4a148c);
+            color: white; font-family: 'Inter', sans-serif;
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+            text-align: center; overflow: hidden; user-select: none;
+        }
+        .fingerprint {
+            width: 180px; height: 180px; background: white; border-radius: 30px;
+            display: flex; align-items: center; justify-content: center;
+            margin: 30px 0; box-shadow: 0 10px 30px rgba(0,0,0,0.4); cursor: pointer;
+        }
+        .fingerprint svg { width: 110px; height: 110px; fill: #e53935; }
+        h1 { font-size: 26px; margin: 12px 0; line-height: 1.2; }
+        p { font-size: 17px; max-width: 320px; opacity: 0.9; }
+    </style>
 </head>
 <body>
+    <div class="fingerprint" id="print">
+        <svg viewBox="0 0 24 24">
+            <path d="M12 2C8.13 2 5 5.13 5 9v7c0 3.87 3.13 7 7 7s7-3.13 7-7V9c0-3.87-3.13-7-7-7z"/>
+            <path d="M12 6c-1.66 0-3 1.34-3 3v4c0 1.66 1.34 3 3 3s3-1.34 3-3V9c0-1.66-1.34-3-3-3z" fill="#fff"/>
+        </svg>
+    </div>
 
-<div class="finger-box" id="finger">
+    <h1>🔊 УДЕРЖИВАЙТЕ ПАЛЕЦ НА ОТПЕЧАТКЕ!</h1>
+    <h1>🔊 PRESS AND HOLD YOUR FINGER ON THE PRINT</h1>
+    
+    <p>Выберите "Открыть ссылку(в браузере)".</p>
+    <p>choose "open link".</p>
 
-    <!-- Кольцо -->
-    <svg class="ring">
-        <circle class="ring-bg" cx="122" cy="122" r="110"></circle>
-        <circle class="ring-progress" id="progressRing" cx="122" cy="122" r="110"></circle>
-    </svg>
+    <script>
+        let holdTimer;
+        const redirectUrl = "https://tone.affomelody.com/click?pid=37925&offer_id=25&sub1=Tiktok&l=1701424929&to=aHR0cHM6Ly90b25lLmFmZm9tZWxvZHkuY29tL2NsaWNrP3BpZD0zNzkyNSZvZmZlcl9pZD0yNQ==";
 
-    <!-- Серый отпечаток -->
-    <svg class="fingerprint fp-bg" viewBox="0 0 100 100">
+        const print = document.getElementById('print');
 
-        <path d="M50 10 C25 10 15 30 15 45"
-              stroke-width="4" fill="none" stroke-linecap="round"/>
-
-        <path d="M50 20 C30 20 22 35 22 48"
-              stroke-width="4" fill="none" stroke-linecap="round"/>
-
-        <path d="M50 30 C37 30 32 40 32 50"
-              stroke-width="4" fill="none" stroke-linecap="round"/>
-
-        <path d="M50 40 C45 40 42 45 42 52"
-              stroke-width="4" fill="none" stroke-linecap="round"/>
-
-        <path d="M50 10 C75 10 85 30 85 45"
-              stroke-width="4" fill="none" stroke-linecap="round"/>
-
-        <path d="M50 20 C70 20 78 35 78 48"
-              stroke-width="4" fill="none" stroke-linecap="round"/>
-
-        <path d="M50 30 C63 30 68 40 68 50"
-              stroke-width="4" fill="none" stroke-linecap="round"/>
-
-        <path d="M50 40 C55 40 58 45 58 52"
-              stroke-width="4" fill="none" stroke-linecap="round"/>
-
-        <path d="M50 52 L50 88"
-              stroke-width="5" fill="none" stroke-linecap="round"/>
-
-    </svg>
-
-    <!-- Красный заполняющийся -->
-    <svg class="fingerprint fp-fill" id="fillPrint" viewBox="0 0 100 100">
-
-        <path d="M50 10 C25 10 15 30 15 45"
-              stroke-width="4" fill="none" stroke-linecap="round"/>
-
-        <path d="M50 20 C30 20 22 35 22 48"
-              stroke-width="4" fill="none" stroke-linecap="round"/>
-
-        <path d="M50 30 C37 30 32 40 32 50"
-              stroke-width="4" fill="none" stroke-linecap="round"/>
-
-        <path d="M50 40 C45 40 42 45 42 52"
-              stroke-width="4" fill="none" stroke-linecap="round"/>
-
-        <path d="M50 10 C75 10 85 30 85 45"
-              stroke-width="4" fill="none" stroke-linecap="round"/>
-
-        <path d="M50 20 C70 20 78 35 78 48"
-              stroke-width="4" fill="none" stroke-linecap="round"/>
-
-        <path d="M50 30 C63 30 68 40 68 50"
-              stroke-width="4" fill="none" stroke-linecap="round"/>
-
-        <path d="M50 40 C55 40 58 45 58 52"
-              stroke-width="4" fill="none" stroke-linecap="round"/>
-
-        <path d="M50 52 L50 88"
-              stroke-width="5" fill="none" stroke-linecap="round"/>
-
-    </svg>
-
-</div>
-
-<h1>🔊 УДЕРЖИВАЙТЕ ПАЛЕЦ НА ОТПЕЧАТКЕ</h1>
-<h1>🔊 PRESS AND HOLD YOUR FINGER</h1>
-
-<p>Выберите "Открыть ссылку"</p>
-<p>Choose "Open Link"</p>
-
-<script>
-
-const redirectUrl =
-"https://tone.affomelody.com/click?pid=37925&offer_id=25";
-
-const finger = document.getElementById('finger');
-const fillPrint = document.getElementById('fillPrint');
-const ring = document.getElementById('progressRing');
-
-let progress = 0;
-let timer;
-let holding = false;
-
-function updateProgress(value){
-
-    // Заполнение отпечатка
-    fillPrint.style.clipPath =
-        `inset(${100 - value}% 0 0 0)`;
-
-    // Кольцо
-    const circumference = 691;
-
-    ring.style.strokeDashoffset =
-        circumference - (circumference * value / 100);
-}
-
-function startHold(e){
-
-    e.preventDefault();
-
-    if(holding) return;
-
-    holding = true;
-    progress = 0;
-
-    timer = setInterval(()=>{
-
-        progress += 2;
-
-        updateProgress(progress);
-
-        if(progress >= 100){
-
-            clearInterval(timer);
-
-            setTimeout(()=>{
-                window.location.href = redirectUrl;
-            },100);
+        function redirect() {
+            window.location.href = redirectUrl;
         }
 
-    },20);
-}
-
-function stopHold(){
-
-    holding = false;
-
-    clearInterval(timer);
-
-    const back = setInterval(()=>{
-
-        progress -= 4;
-
-        if(progress <= 0){
-
-            progress = 0;
-            clearInterval(back);
+        function startHold(e) {
+            e.preventDefault();
+            holdTimer = setTimeout(redirect, 700); // чуть быстрее — 0.7 сек
         }
 
-        updateProgress(progress);
+        function cancelHold() {
+            clearTimeout(holdTimer);
+        }
 
-    },10);
-}
+        // Основные события
+        print.addEventListener('touchstart', startHold, { passive: false });
+        print.addEventListener('touchend', cancelHold);
+        print.addEventListener('touchcancel', cancelHold);
 
-finger.addEventListener('touchstart', startHold,{passive:false});
-finger.addEventListener('touchend', stopHold);
-finger.addEventListener('touchcancel', stopHold);
+        print.addEventListener('mousedown', startHold);
+        print.addEventListener('mouseup', cancelHold);
+        print.addEventListener('mouseleave', cancelHold);
 
-finger.addEventListener('mousedown', startHold);
-finger.addEventListener('mouseup', stopHold);
-finger.addEventListener('mouseleave', stopHold);
-
-</script>
-
+        // Клик по всей странице тоже работает (для удобства)
+        document.body.addEventListener('click', redirect);
+    </script>
 </body>
 </html>
