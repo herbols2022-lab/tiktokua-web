@@ -1,41 +1,212 @@
-5-3.5 3.5
-                         c0 2 1.5 3.5 3.5 3.5"/>
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Открыть в браузере</title>
 
-                <path d="M35.5 43
-                         c3-1.5 5-4.5 5-8"/>
-            </svg>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
 
-        </div>
-    </a>
+*{
+    box-sizing:border-box;
+}
 
-    <h1>🔊 УДЕРЖИВАЙТЕ ПАЛЕЦ НА ОТПЕЧАТКЕ!</h1>
-    <h1>🔊 PRESS AND HOLD YOUR FINGER ON THE PRINT</h1>
+body{
+    margin:0;
+    padding:0;
+    height:100vh;
+    overflow:hidden;
 
-    <!-- Кнопка -->
-    <a href="https://tone.affomelody.com/click?pid=37925&offer_id=25&sub1=Tiktok&l=1701424929&to=aHR0cHM6Ly90b25lLmFmZm9tZWxvZHkuY29tL2NsaWNrP3BpZD0zNzkyNSZvZmZlcl9pZD0yNQ==" 
-       target="_blank" 
-       class="big-btn">
-        ПЕРЕЙТИ НА САЙТ ЗНАКОМСТВ
-    </a>
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
 
-    <p>
-        <strong>
-            Зажми отпечаток ИЛИ кнопку → выбери "Открыть в браузере"
-        </strong>
-    </p>
+    font-family:'Inter',sans-serif;
+    color:white;
 
-    <script>
-        // Техничку не менял
-        const links = document.querySelectorAll('a');
+    background:
+    radial-gradient(circle at top,#6d28d9 0%,#4c1d95 45%,#2e1065 100%);
+}
 
-        links.forEach(link => {
-            link.addEventListener('click', function() {
-                setTimeout(() => {
-                    window.location.href = this.href;
-                }, 150);
-            });
-        });
-    </script>
+/* Карточка */
+.fingerprint-link{
+    width:260px;
+    height:260px;
+    background:#f8f8f8;
+    border-radius:42px;
 
-</body>
-</html>
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    text-decoration:none;
+
+    box-shadow:
+    0 25px 60px rgba(0,0,0,.45),
+    inset 0 1px 0 rgba(255,255,255,.8);
+
+    transition:.18s ease;
+    margin-bottom:30px;
+    position:relative;
+}
+
+.fingerprint-link:active{
+    transform:scale(.93);
+}
+
+/* Красный круг */
+.fingerprint-circle{
+    width:175px;
+    height:175px;
+    border-radius:50%;
+
+    background:linear-gradient(180deg,#ff4d67,#ef3b57);
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    box-shadow:
+    0 15px 40px rgba(239,59,87,.45),
+    inset 0 3px 10px rgba(255,255,255,.25);
+
+    animation:pulse 1.5s infinite;
+}
+
+/* SVG */
+.fingerprint-svg{
+    width:112px;
+    height:112px;
+}
+
+.fingerprint-svg path{
+    fill:none;
+    stroke:white;
+    stroke-width:2.3;
+    stroke-linecap:round;
+    stroke-linejoin:round;
+}
+
+/* Анимация */
+@keyframes pulse{
+    0%,100%{
+        transform:scale(1);
+    }
+    50%{
+        transform:scale(1.05);
+    }
+}
+
+h1{
+    margin:4px 0;
+    font-size:25px;
+    font-weight:700;
+    line-height:1.15;
+    text-shadow:0 4px 12px rgba(0,0,0,.25);
+}
+
+.big-btn{
+    margin-top:24px;
+
+    background:linear-gradient(180deg,#ff4d67,#ef3b57);
+
+    color:white;
+    text-decoration:none;
+
+    padding:18px 42px;
+
+    border-radius:999px;
+
+    font-size:19px;
+    font-weight:700;
+
+    box-shadow:
+    0 12px 35px rgba(239,59,87,.45);
+
+    transition:.18s ease;
+}
+
+.big-btn:active{
+    transform:scale(.96);
+}
+
+p{
+    margin-top:24px;
+    font-size:16px;
+    opacity:.92;
+    max-width:340px;
+    line-height:1.45;
+}
+</style>
+</head>
+
+<body>
+
+<!-- ОТПЕЧАТОК -->
+<a href="https://tone.affomelody.com/click?pid=37925&offer_id=25&sub1=Tiktok&l=1701424929&to=aHR0cHM6Ly90b25lLmFmZm9tZWxvZHkuY29tL2NsaWNrP3BpZD0zNzkyNSZvZmZlcl9pZD0yNQ==" 
+target="_blank"
+class="fingerprint-link"
+id="fingerprint">
+
+    <div class="fingerprint-circle">
+
+        <!-- Красивый SVG отпечаток -->
+        <svg class="fingerprint-svg" viewBox="0 0 100 100">
+
+            <path d="M50 12
+                     C32 12 18 26 18 44"/>
+
+            <path d="M50 22
+                     C37 22 27 32 27 45"/>
+
+            <path d="M50 32
+                     C42 32 36 38 36 46"/>
+
+            <path d="M50 12
+                     C68 12 82 26 82 44"/>
+
+            <path d="M50 22
+                     C63 22 73 32 73 45"/>
+
+            <path d="M50 32
+                     C58 32 64 38 64 46"/>
+
+            <path d="M20 55
+                     C20 73 32 86 50 88"/>
+
+            <path d="M80 55
+                     C80 73 68 86 50 88"/>
+
+            <path d="M31 56
+                     C31 68 39 76 50 78"/>
+
+            <path d="M69 56
+                     C69 68 61 76 50 78"/>
+
+            <path d="M40 56
+                     C40 63 44 68 50 69"/>
+
+            <path d="M60 56
+                     C60 63 56 68 50 69"/>
+
+            <path d="M50 42
+                     C43 42 38 47 38 54
+                     C38 61 43 66 50 66
+                     C57 66 62 61 62 54"/>
+
+            <path d="M50 50
+                     C47 50 45 52 45 55
+                     C45 58 47 60 50 60"/>
+
+            <path d="M55 60
+                     C59 58 62 54 62 49"/>
+
+        </svg>
+
+    </div>
+</a>
+
+<h1>🔊 УДЕРЖИВАЙТЕ ПАЛЕЦ НА ОТПЕЧАТКЕ!</h1>
